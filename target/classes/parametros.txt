@@ -1,0 +1,19 @@
+{
+	"home" : "http://localhost",
+	"login" : "?ojr=login",
+	
+	"email" : {
+		"host" : "smtp.gmail.com",
+		"startTTLS" : "true",
+		"port" : "587",
+		"sender" : "edminigames@gmail.com",
+		"serverUser" : "edminigames@gmail.com",
+		"auth" : "true",
+		"pwd" : "EDMiniGames123",
+		"fallback" : "false",
+		"registerMsgTopic": "Registro de cuenta",
+		"registerMsgContent" : "Tu cuenta se ha creado correctamente",
+		"recoveryMsgTopic": "Recuperación de contraseña",
+		"recoveryMsgContent" : "Para recuperar tu contraseña pulsa aquí: "
+	}	
+}

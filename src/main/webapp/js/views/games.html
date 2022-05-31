@@ -1,0 +1,228 @@
+<head>
+	<link rel="stylesheet" type="text/css" href="css/css-util-template.css" />
+	<link rel="stylesheet" type="text/css" href="css/font-awesome-4.7.0/css/font-awesome.min.css" />
+
+	<link rel="stylesheet" type="text/css" href="css/template/vendor/bootstrap/css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/fonts/iconic/css/material-design-iconic-font.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/template/vendor/animate/animate.css" />
+	<link rel="stylesheet" type="text/css" href="css/template/vendor/css-hamburgers/hamburgers.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/template/vendor/animsition/css/animsition.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/template/vendor/select2/select2.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/template/vendor/daterangepicker/daterangepicker.css" />
+	<link rel="stylesheet" type="text/css" href="css/template/EDcss.css" />
+
+</head>
+
+<body>
+
+	<div class="oj-hybrid-applayout-page">
+		<div class="oj-applayout-fixed-top">
+			<header role="banner" class="oj-hybrid-applayout-header">
+				<oj-module config="[[headerConfig]]"></oj-module>
+			</header>
+		</div>
+		<div class="oj-applayout-content">
+			<div role="main" class="oj-hybrid-applayout-content">
+				<div class="oj-hybrid-padding">
+
+					<div>
+						<span data-bind="html : error" style="color : red"></span>
+						
+						
+						<!-- ko foreach : games -->
+						<div>
+						<button data-bind="click : function() { $parent.joinGame($data); }" id="botonJugar3Raya" value="games">Jugar
+								<label data-bind="html : name"></label></button>
+							<button data-bind="click : function() { $parent.joinJuegoMaquina($data); }" value="games">Jugar
+								tres en raya contra CPU</label></button>
+						</div>
+						<!-- /ko -->
+
+
+						<!-- ESTADISTICAS -->
+
+						<!-- ko if: statistics()[0] == 1 -->
+
+
+						<div class="gameContainer" style="align-items: center;
+  											display: flex;
+ 											 justify-content: center;">
+							<div class="item" style="align-items: center;
+ 											 display: flex;
+  												justify-content: center;">ESTADISTICAS &nbsp; <h1 style="padding-top: 5px;">➜</h1 style="padding: 3px;"> &nbsp;
+							</div>
+							<div class="item">
+								<div>¿QUIÉN ES QUIÉN?</div>
+								<p>WINS: <span data-bind="html: statistics()[2]"></span> &nbsp; | &nbsp; LOST: <span
+										data-bind="html: statistics()[1]"></span></p>
+
+							</div>
+							<div class="item">
+								<div>TRES EN RAYA</div>
+								<p>WINS: <span data-bind="html: statistics()[4]">25</span> &nbsp; | &nbsp; LOST: <span
+										data-bind="html: statistics()[3]">30</span></p>
+							</div>
+						</div>
+
+						<!-- /ko -->
+
+
+						<!-- FIN ESTADISTICAS -->
+					</div>
+
+					<div class="contenedor">
+
+						<!-- ZONA DE JUEGO -->
+
+						<div class="gameContainer">
+							<div class="item">
+								<ol>
+									<!-- ko foreach : matches -->
+									<li>
+										<div>
+											JUGADOR 1:
+											<!-- ko if : players[0] -->
+											<b>
+											<span style="color: greenyellow;" data-bind="html : players[0].name"></span style="color: greenyellow">
+											</b>
+											<br>
+											<!-- /ko -->
+											JUGADOR 2:
+											<!-- ko if : players[1] -->
+											<b>
+											<span style="color: orange" data-bind="html : players[1].name"></span>
+											</b>
+											<!-- /ko -->
+											<!-- ko ifnot : players[1] -->
+											Esperando a un rival...
+											<!-- /ko -->
+										</div>
+										<div style="color: rgb(0, 128, 192);">ES TURNO DE:
+											<!-- ko if : playerWithTurn -->
+											<span data-bind="html : playerWithTurn.name"></span>
+											<!-- /ko -->
+										</div>
+
+
+										<input data-bind="value : $parent.x" type="number" size="1" placeholder="X">
+										<input data-bind="value : $parent.y" type="number" size="1" placeholder="Y">
+										<button
+											data-bind="click : function() { $parent.moverFichas($data); }">Mover</button>
+
+
+										<!-- MENSAJE PARTIDA TERMINADA -->
+								
+										<!-- ko if : winner -->
+										<div style="color: green;">GANADOR:
+
+											<span data-bind="html : winner.name" id="ganador"></span>
+
+										</div>
+										<!-- /ko -->
+										<!-- ko if : looser -->
+										<div style="color: red;">PERDEDOR:
+
+											<span data-bind="html : looser.name"></span>
+
+										</div>
+
+										<!-- /ko -->
+								
+										<!-- ko if : draw == true -->
+										<div style="color: purple;">HABEIS EMPATADO</span></div>
+										<!-- /ko -->
+										<!-- FIN MENSAJE PARTIDA TERMINADA -->
+
+
+
+
+
+
+
+
+									</li>
+
+									<!-- TABLERO TRES EN RAYA -->
+									<!-- ko with : board -->
+									<div class="Board">
+										<!-- ko foreach : squares -->
+										<div class="Row">
+											<!-- ko foreach : $data -->
+											<!-- ko if : $data == 0 -->
+											<div class="TicTacToeSquare TicTacToeBackground">
+
+											</div>
+											<!-- /ko-->
+
+											<!-- ko if : $data == 1 -->
+											<div class="TicTacToeSquare TicTacToeBackground">
+												<i class="fa fa-close Cross"></i>
+											</div>
+											<!-- /ko-->
+
+											<!-- ko if : $data == 2 -->
+											<div class="TicTacToeSquare TicTacToeBackground">
+												<i class="fa fa-circle-o Circle"></i>
+											</div>
+											<!-- /ko-->
+											<!-- /ko -->
+										</div>
+										<!-- /ko -->
+									</div>
+									<!-- /ko -->
+									<button data-bind="click : function() { $parent.rendirse($data.id); }"
+										class="Refresh">
+										¡ME RINDO!
+									</button>
+
+									<!-- FIN TABLERO TRES EN RAYA -->
+									<!-- /ko -->
+
+								</ol>
+
+							</div>
+							<div class="item">
+								<!-- ko if: matches().length != 0 -->
+								<!-- ChatPanel   -->
+								<div class="Chat wrap-1">
+									<br>
+									<br>
+
+
+									<div class="Title">
+										<h5> CHAT DEL JUEGO <h5>
+									</div>
+									<div id="chatContent" class="ChatContent">
+										<!-- ko foreach : chat -->
+										<div class="Message">
+											<span class="User" data-bind="html: user"></span>
+											<span class="Text" data-bind="html: msg"></span>
+										</div>
+										<!-- /ko -->
+									</div>
+									<div class="ChatInput">
+										<input id="inputChat" class="Input"
+											data-bind="value : inputChat, event: { 'keyup': handleEnterChat}"
+											type="text" placeholder="Mensaje" />
+										<button data-bind="click: function() { sendMessage(); }">
+											ENVIAR
+										</button>
+									</div>
+								</div>
+								<!-- /ko -->
+
+							</div>
+
+
+
+
+						</div>
+						<!-- ZONA DE JUEGO -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+
+	<body>
